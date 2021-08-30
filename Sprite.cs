@@ -4,7 +4,7 @@ using System;
 public class Sprite : Godot.Sprite
 {
 
-  private UInt32 velocity = 3;
+  private UInt32 velocity;
   public override void _Ready()
   {
 
@@ -13,15 +13,24 @@ public class Sprite : Godot.Sprite
   public override void _Process(float delta)
   {
     handleInput();
+    GD.Print(velocity);
   }
 
   private void handleInput()
   {
-    if (Input.IsActionJustPressed("ui_cancel"))
+    if (Input.IsActionPressed("ui_cancel"))
     {
       GetTree().Quit();
     }
 
+    if (Input.IsActionPressed("boost"))
+    {
+      velocity = 6;
+    }
+    else
+    {
+      velocity = 3;
+    }
     if (Input.IsActionPressed("ui_up"))
     {
       Position = new Vector2(Position.x, Position.y - velocity);
